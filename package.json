@@ -2,7 +2,7 @@
   "name": "hsa-test",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Lucas Andrade <lucas.andrade.oliveira@hotmail.com>",
+  "author": "Lucas Andrade <lucasandradedeveloper@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec NODE_ENV=development babel-node start"
