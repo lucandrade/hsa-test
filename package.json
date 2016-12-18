@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Lucas Andrade <lucas.andrade.oliveira@hotmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec NODE_ENV=development babel-node start"
+  },
   "dependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
