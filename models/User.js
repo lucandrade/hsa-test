@@ -12,6 +12,17 @@ UserSchema.methods.comparePassword = function comparePassword(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
+UserSchema.set('toJSON', {
+    transform: function userSchemaToJson(doc, ret) {
+        const retJson = {
+            id: ret._id,
+            name: ret.name,
+            email: ret.email,
+        };
+        return retJson;
+    },
+});
+
 UserSchema.pre('save', function (next) {  // eslint-disable-line
     const user = this;
     if (user.isModified('password') || user.isNew) {

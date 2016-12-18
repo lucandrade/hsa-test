@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import config from './config/app';
 import datasource from './config/datasource';
 import authorization from './config/auth';
+import routes from './routes';
 
 const app = express();
 app.config = config;
@@ -13,6 +14,8 @@ const auth = authorization(app);
 app.use(auth.initialize());
 app.use(bodyParser.json());
 app.use(helmet());
+app.auth = auth;
+routes(app);
 
 app.set('port', app.config.port);
 

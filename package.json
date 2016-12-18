@@ -8,7 +8,8 @@
     "start": "nodemon --exec NODE_ENV=development babel-node start",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint **/*.js --fix",
-    "test:unit": "NODE_ENV=test mocha --opts test/unit/mocha.opts test/unit/**/*.js"
+    "test:unit": "NODE_ENV=test mocha --opts test/unit/mocha.opts test/unit/**/*.js",
+    "test:integration": "NODE_ENV=test mocha --opts test/integration/mocha.opts test/integration/**/*.js"
   },
   "dependencies": {
     "babel": "^6.5.2",
