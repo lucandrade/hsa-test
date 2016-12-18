@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     name: { type: String },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    recoverToken: { type: String },
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password) {
