@@ -9,7 +9,8 @@
     "lint": "eslint **/*.js",
     "lint:fix": "eslint **/*.js --fix",
     "test:unit": "NODE_ENV=test mocha --opts test/unit/mocha.opts test/unit/**/*.js",
-    "test:integration": "NODE_ENV=test mocha --opts test/integration/mocha.opts test/integration/**/*.js"
+    "test:integration": "NODE_ENV=test mocha --opts test/integration/mocha.opts test/integration/**/*.js",
+    "test:contract": "NODE_ENV=test mocha --opts test/contracts/mocha.opts test/contracts/*.js"
   },
   "dependencies": {
     "babel": "^6.5.2",

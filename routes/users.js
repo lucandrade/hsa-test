@@ -14,32 +14,10 @@ export default app => {
             });
     });
 
-    router.route('/me')
-        .all(app.auth.authenticate())
-        .get((req, res) => {
-            if (req.user) {
-                controller.setUser(req.user)
-                    .me()
-                    .then(result => {
-                        res.status(result.statusCode)
-                            .send(result.data);
-                    });
-            } else {
-                res.sendStatus(HttStatus.UNAUTHORIZED);
-            }
-        });
-
     router.route('/users')
         .all(app.auth.authenticate())
         .post((req, res) => {
             controller.create(req.body)
-                .then(result => {
-                    res.status(result.statusCode)
-                        .send(result.data);
-                });
-        })
-        .get((req, res) => {
-            controller.getAll()
                 .then(result => {
                     res.status(result.statusCode)
                         .send(result.data);
@@ -65,6 +43,21 @@ export default app => {
         .delete((req, res) => {
             controller.delete(req.params.id)
                 .then(result => res.sendStatus(result.statusCode));
+        });
+
+    router.route('/me')
+        .all(app.auth.authenticate())
+        .get((req, res) => {
+            if (req.user) {
+                controller.setUser(req.user)
+                    .me()
+                    .then(result => {
+                        res.status(result.statusCode)
+                            .send(result.data);
+                    });
+            } else {
+                res.sendStatus(HttStatus.UNAUTHORIZED);
+            }
         });
 
     return router;

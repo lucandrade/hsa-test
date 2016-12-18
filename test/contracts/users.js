@@ -22,41 +22,25 @@ describe('Routes Users', () => {
                 done();
             });
     });
-
-    describe('Route POST /v1/auth', () => {
-        it('should authenticate the user', done => {
-            const authorization = {
+    describe('Route GET /v1/auth', () => {
+        it('should return a list of users', done => {
+            const login = {
                 username: defaultUser.email,
                 password: defaultUser.password,
             };
-
             request
                 .post('/v1/auth')
-                .send(authorization)
+                .send(login)
                 .end((err, res) => {
-                    assert(res.body.token.indexOf('JWT ') >= 0, 'is ok');
-                    done(err);
-                });
-        });
-    });
-
-    describe('Route GET /v1/me', () => {
-        it('should return status code 401', done => {
-            request
-                .get('/v1/me')
-                .end((err, res) => {
-                    expect(res.statusCode).to.be.equal(401);
-                    done(err);
-                });
-        });
-
-        it('should return logged user', done => {
-            request
-                .get('/v1/me')
-                .set('Authorization', `JWT ${token}`)
-                .end((err, res) => {
-                    expect(res.body.id).to.be.equal(defaultUser._id.toString());
-                    expect(res.body.name).to.be.equal(defaultUser.name);
+                    const tokenContract = Joi.object().keys({
+                        token: Joi.string(),
+                        user: Joi.object().keys({
+                            id: Joi.string(),
+                            name: Joi.string(),
+                            email: Joi.string(),
+                        }),
+                    });
+                    JoiAssert(res.body, tokenContract);
                     done(err);
                 });
         });
@@ -68,8 +52,12 @@ describe('Routes Users', () => {
                 .get(`/v1/users/${userId}`)
                 .set('Authorization', `JWT ${token}`)
                 .end((err, res) => {
-                    expect(res.body.id).to.be.equal(defaultUser._id.toString());
-                    expect(res.body.name).to.be.equal(defaultUser.name);
+                    const user = Joi.object().keys({
+                        id: Joi.string(),
+                        name: Joi.string(),
+                        email: Joi.string(),
+                    });
+                    JoiAssert(res.body, user);
                     done(err);
                 });
         });
@@ -89,8 +77,12 @@ describe('Routes Users', () => {
                 .set('Authorization', `JWT ${token}`)
                 .send(newUser)
                 .end((err, res) => {
-                    expect(res.body.id).to.be.equal(newUser._id.toString());
-                    expect(res.body.name).to.be.equal(newUser.name);
+                    const user = Joi.object().keys({
+                        id: Joi.string(),
+                        name: Joi.string(),
+                        email: Joi.string(),
+                    });
+                    JoiAssert(res.body, user);
                     done(err);
                 });
         });
@@ -104,21 +96,12 @@ describe('Routes Users', () => {
                 .set('Authorization', `JWT ${token}`)
                 .send(defaultUser)
                 .end((err, res) => {
-                    expect(res.body.id).to.be.equal(defaultUser._id.toString());
-                    expect(res.body.name).to.be.equal(defaultUser.name);
-                    done(err);
-                });
-        });
-    });
-
-    describe('Route DELETE /v1/users/{id}', () => {
-        it('should delete a user', done => {
-            request
-                .delete(`/v1/users/${defaultUser._id}`)
-                .set('Authorization', `JWT ${token}`)
-                .send(defaultUser)
-                .end((err, res) => {
-                    expect(res.statusCode).to.be.equal(204);
+                    const user = Joi.object().keys({
+                        id: Joi.string(),
+                        name: Joi.string(),
+                        email: Joi.string(),
+                    });
+                    JoiAssert(res.body, user);
                     done(err);
                 });
         });
