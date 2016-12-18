@@ -1,34 +1,6 @@
 import UsersController from '../../../controllers/UsersController';
 
 describe('Controllers: Users', () => {
-    describe('Get all users: getAll()', () => {
-        it('should return a list of users', () => {
-            const app = {
-                datasource: {
-                    models: {
-                        User: {
-                            find: td.function(),
-                        },
-                    },
-                },
-            };
-
-            const expectedResponse = [{
-                name: 'Test',
-                email: 'email@email.com',
-            }];
-
-            td.when(app.datasource.models.User.find({})).thenResolve(expectedResponse);
-
-            const controller = new UsersController(app);
-            return controller.getAll()
-                .then(response => {
-                    expect(response.statusCode).to.be.equal(200);
-                    expect(response.data).to.be.equal(expectedResponse);
-                });
-        });
-    });
-
     describe('Get a user: getById()', () => {
         it('should return a user', () => {
             const app = {
