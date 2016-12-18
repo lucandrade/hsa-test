@@ -5,7 +5,10 @@
   "author": "Lucas Andrade <lucasandradedeveloper@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec NODE_ENV=development babel-node start"
+    "start": "nodemon --exec NODE_ENV=development babel-node start",
+    "lint": "eslint **/*.js",
+    "lint:fix": "eslint **/*.js --fix",
+    "test:unit": "NODE_ENV=test mocha --opts test/unit/mocha.opts test/unit/**/*.js"
   },
   "dependencies": {
     "babel": "^6.5.2",
