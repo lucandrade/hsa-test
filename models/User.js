@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     recoverToken: { type: String },
+    notes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
+}, {
+    timestamps: true,
+    versionKey: false,
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password) {
@@ -18,20 +22,24 @@ UserSchema.set('toJSON', {
             id: ret._id,
             name: ret.name,
             email: ret.email,
+            notes: 0,
         };
+        if (ret.notes instanceof Array && ret.notes.length > 0) {
+            retJson.notes = ret.notes.length;
+        }
         return retJson;
     },
 });
 
-UserSchema.pre('save', function (next) {  // eslint-disable-line
+UserSchema.pre('save', function (next) { // eslint-disable-line
     const user = this;
     if (user.isModified('password') || user.isNew) {
-        bcrypt.genSalt(10, (err, salt) => {  // eslint-disable-line
+        bcrypt.genSalt(10, (err, salt) => { // eslint-disable-line
             if (err) {
                 return next(err);
             }
 
-            bcrypt.hash(user.password, salt, (err, hash) => {  // eslint-disable-line
+            bcrypt.hash(user.password, salt, (err, hash) => { // eslint-disable-line
                 if (err) {
                     return next(err);
                 }

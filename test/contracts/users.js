@@ -38,6 +38,7 @@ describe('Routes Users', () => {
                             id: Joi.string(),
                             name: Joi.string(),
                             email: Joi.string(),
+                            notes: Joi.number(),
                         }),
                     });
                     JoiAssert(res.body, tokenContract);
@@ -56,6 +57,7 @@ describe('Routes Users', () => {
                         id: Joi.string(),
                         name: Joi.string(),
                         email: Joi.string(),
+                        notes: Joi.number(),
                     });
                     JoiAssert(res.body, user);
                     done(err);
@@ -81,6 +83,7 @@ describe('Routes Users', () => {
                         id: Joi.string(),
                         name: Joi.string(),
                         email: Joi.string(),
+                        notes: Joi.number(),
                     });
                     JoiAssert(res.body, user);
                     done(err);
@@ -100,6 +103,7 @@ describe('Routes Users', () => {
                         id: Joi.string(),
                         name: Joi.string(),
                         email: Joi.string(),
+                        notes: Joi.number(),
                     });
                     JoiAssert(res.body, user);
                     done(err);

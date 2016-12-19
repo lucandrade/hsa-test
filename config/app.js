@@ -11,4 +11,9 @@ export default {
         secret: process.env.JWT_SECRET || '0832475ogj342l5hj',
         session: { session: false },
     },
+    email: {
+        key: process.env.EMAIL_KEY || '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',
+        timeout: process.env.EMAIL_TIMEOUT || 5000,
+        template: process.env.EMAIL_TEMPLATE || '543a356e-e969-478e-b8df-a1a7ccf77f69',
+    },
 };
