@@ -39,7 +39,7 @@ export default class NotesController {
             })
             .then(updated => {
                 if (updated) {
-                    return response.success(this.note);
+                    return response.success(this.note, HttStatus.CREATED);
                 }
 
                 throw new Error('Error updating logged user');
