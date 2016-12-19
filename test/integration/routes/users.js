@@ -62,19 +62,6 @@ describe('Routes Users', () => {
         });
     });
 
-    describe('Route GET /v1/users/{id}', () => {
-        it('should return a user', done => {
-            request
-                .get(`/v1/users/${userId}`)
-                .set('Authorization', `JWT ${token}`)
-                .end((err, res) => {
-                    expect(res.body.id).to.be.equal(defaultUser._id.toString());
-                    expect(res.body.name).to.be.equal(defaultUser.name);
-                    done(err);
-                });
-        });
-    });
-
     describe('Route POST /v1/users', () => {
         it('should create a user', done => {
             const newUser = {
@@ -96,29 +83,16 @@ describe('Routes Users', () => {
         });
     });
 
-    describe('Route PUT /v1/users/{id}', () => {
+    describe('Route PUT /v1/me', () => {
         it('should update a user', done => {
             defaultUser.name = 'Teste';
             request
-                .put(`/v1/users/${defaultUser._id}`)
+                .put('/v1/me')
                 .set('Authorization', `JWT ${token}`)
                 .send(defaultUser)
                 .end((err, res) => {
                     expect(res.body.id).to.be.equal(defaultUser._id.toString());
                     expect(res.body.name).to.be.equal(defaultUser.name);
-                    done(err);
-                });
-        });
-    });
-
-    describe('Route DELETE /v1/users/{id}', () => {
-        it('should delete a user', done => {
-            request
-                .delete(`/v1/users/${defaultUser._id}`)
-                .set('Authorization', `JWT ${token}`)
-                .send(defaultUser)
-                .end((err, res) => {
-                    expect(res.statusCode).to.be.equal(204);
                     done(err);
                 });
         });

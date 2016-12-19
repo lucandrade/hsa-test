@@ -61,27 +61,6 @@ export default app => {
                 });
         });
 
-    router.route('/users/:id')
-        .all(app.auth.authenticate())
-        .get((req, res) => {
-            userController.getById(req.params.id)
-                .then(result => {
-                    res.status(result.statusCode)
-                        .send(result.data);
-                });
-        })
-        .put((req, res) => {
-            userController.update(req.params.id, req.body)
-                .then(result => {
-                    res.status(result.statusCode)
-                        .send(result.data);
-                });
-        })
-        .delete((req, res) => {
-            userController.delete(req.params.id)
-                .then(result => res.sendStatus(result.statusCode));
-        });
-
     router.route('/me')
         .all(app.auth.authenticate())
         .get((req, res) => {

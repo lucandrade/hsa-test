@@ -47,10 +47,10 @@ describe('Routes Users', () => {
         });
     });
 
-    describe('Route GET /v1/users/{id}', () => {
-        it('should return a user', done => {
+    describe('Route GET /v1/me', () => {
+        it('should return the logged user', done => {
             request
-                .get(`/v1/users/${userId}`)
+                .get('/v1/me')
                 .set('Authorization', `JWT ${token}`)
                 .end((err, res) => {
                     const user = Joi.object().keys({
@@ -91,11 +91,11 @@ describe('Routes Users', () => {
         });
     });
 
-    describe('Route PUT /v1/users/{id}', () => {
-        it('should update a user', done => {
+    describe('Route PUT /v1/me', () => {
+        it('should update the logged user', done => {
             defaultUser.name = 'Teste';
             request
-                .put(`/v1/users/${defaultUser._id}`)
+                .put('/v1/me')
                 .set('Authorization', `JWT ${token}`)
                 .send(defaultUser)
                 .end((err, res) => {
